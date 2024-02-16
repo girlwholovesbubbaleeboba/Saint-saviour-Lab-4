@@ -1,0 +1,29 @@
+# tests/test_app.py
+import unittest
+from app import app
+
+class TestCombatApp(unittest.TestCase):
+    def setUp(self):
+        # Set up a test client
+        self.app = app.test_client()
+
+    def test_roll_endpoint(self):
+        # Test the /roll endpoint
+        response = self.app.get('/roll')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Combat details for /roll:", response.data)
+
+    def test_roll_advantage_endpoint(self):
+        # Test the /roll.advantage endpoint
+        response = self.app.get('/roll.advantage')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Combat details for /roll.advantage:", response.data)
+
+    def test_roll_disadvantage_endpoint(self):
+        # Test the /roll.disadvantage endpoint
+        response = self.app.get('/roll.disadvantage')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Combat details for /roll.disadvantage:", response.data)
+
+if __name__ == '__main__':
+    unittest.main()
